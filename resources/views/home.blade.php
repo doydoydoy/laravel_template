@@ -1,13 +1,23 @@
-@extends('layout.master')
-
-@section('title')
-	Home Page
-@endsection
+@extends('layouts.app')
 
 @section('content')
-	content
-@endsection
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Dashboard</div>
 
-@section('sidebar')
-	<h1>SIDEBAR</h1>
+                <div class="panel-body">
+                @if(Session::has('message'))
+                    <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+                @endif
+                    You are logged in!
+                    <p>{{Auth::user()->name}}</p>
+                    <p>{{Auth::user()->email}}</p>
+                    <p>{{Auth::user()->password}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

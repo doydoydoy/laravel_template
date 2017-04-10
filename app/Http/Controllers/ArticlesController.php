@@ -8,57 +8,51 @@ use Session;
 
 class ArticlesController extends Controller
 {
-    function showArticles()
-    {
-		$articles = Article::all();
-		return view('article/display', compact('articles'));
+    function showArticles(){
+    	$articles = Article::all();
+    	return view('article/display', compact('articles'));
     }
 
-    function showArticle($id)
-    {
+    function showArticle($id){
     	$article = Article::find($id);
-    	return view('article/display-one-item', compact('article'));
+    	return view('article/display_one_item',compact('article'));
     }
 
-    function createArticle()
-    {
+    function createArticle(){
+
     	return view('article/create');
     }
 
-    function saveArticle(Request $request)
-    {
+    function saveArticle(Request $request){
     	$new_article = new Article();
     	$new_article->title = $request->title;
     	$new_article->content = $request->content;
     	$new_article->save();
 
-    	Session::flash('message', 'Article Created Successfully');
+    	Session::flash('message','Article Successfully Created');
     	return redirect('articles');
     }
 
-    function deleteArticle($id)
-    {
+    function deleteArticle($id){
     	$article_to_be_deleted = Article::find($id);
     	$article_to_be_deleted->delete();
 
-    	Session::flash('message', 'Article Created Deleted');
-        return redirect('articles');
+    	Session::flash('message','Article Successfully Deleted');
+    	return redirect('articles');
     }
 
-    function editArticle($id)
-    {
-    	$article_to_be_edited = Article::find($id);
-    	return view('article/edit', compact('article_to_be_edited'));
+    function displayEditForm($id){
+    	$atbe = Article::find($id);
+    	return view('article/edit', compact('atbe'));
     }
 
-    function editSaveArticle($id, Request $request)
-    {
-    	$article_to_be_edited = Article::find($id);
-    	$article_to_be_edited->title = $request->title;
-    	$article_to_be_edited->content = $request->content;
-    	$article_to_be_edited->save(); 
+    function editArticle($id, Request $request){
+    	$atbe = Article::find($id);
+    	$atbe->title = $request->title;
+    	$atbe->content = $request->content;
+    	$atbe->save();
 
-    	Session::flash('message', 'Article Created Edited');
-        return redirect('articles');
+    	Session::flash('message','Article Successfully Edited');
+    	return redirect('articles');
     }
 }

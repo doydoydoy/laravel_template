@@ -1,16 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Create Article</title>
-</head>
-<body>
+@extends('layout.master')
 
-<form method="POST" action='{{url("articles/$article_to_be_edited->id/edit")}}'>
-	{{csrf_field()}}
-	<input type="text" name="title" value="{{$article_to_be_edited->title}}"></input><br>
-	<textarea name="content">{{$article_to_be_edited->content}}</textarea>
-	<input type="submit" value="Save Edit"></input>
-</form>
+@section('content')
+	<h4>Create New Article</h4>
+	<form action='{{url("articles/$atbe->id/edit")}}' method="POST" class="form-horizontal">
+		{{ csrf_field() }}
+	  <div class="form-group">
+	    <label for="title">Title:</label>
+	    <input type="text" class="form-control" name="title" value='{{$atbe->title}}'>
+	  </div>
+	  <div class="form-group">
+	    <label for="content">Content:</label>
+	    <textarea class="form-control" name="content">{{$atbe->content}}</textarea>
+	  </div>
+	  <button type="submit" class="btn btn-primary">Save Changes</button>
+	</form>
 
-</body>
-</html>
+@endsection

@@ -11,39 +11,26 @@
 |
 */
 
-Route::get('/', function () 
-{
-    return view('welcome');
+Route::get('/', function () {
+    return redirect('home');
 });
 
+Route::get('/articles','ArticlesController@showArticles');
 
-Route::get('/home', function()
-{
-	return view('home');
-});
+Route::get('/articles/create','ArticlesController@createArticle');
 
-Route::get('/articles', 'ArticlesController@showArticles');
+Route::get('/articles/{id}','ArticlesController@showArticle');
 
+Route::post('/articles/create','ArticlesController@saveArticle');
 
-/** Create Article **/ 
+Route::get('/articles/{id}/delete','ArticlesController@deleteArticle');
 
-Route::get('/articles/create', 'ArticlesController@createArticle');
+Route::get('/articles/{id}/edit','ArticlesController@displayEditForm');
 
-Route::post('/articles/create', 'ArticlesController@saveArticle');
+Route::post('/articles/{id}/edit','ArticlesController@editArticle');
 
+Route::post('/comment/{article_id}','CommentsController@addComment');
 
-/** Display Article **/
+Auth::routes();
 
-Route::get('/articles/{id}', 'ArticlesController@showArticle');
-
-
-/** Delete Article **/ 
-
-Route::get('articles/{id}/delete', 'ArticlesController@deleteArticle');
-
-
-/** Edit Article **/ 
-
-Route::get('articles/{id}/edit', 'ArticlesController@editArticle');
-
-Route::post('articles/{id}/edit', 'ArticlesController@editSaveArticle');
+Route::get('/home', 'HomeController@index');

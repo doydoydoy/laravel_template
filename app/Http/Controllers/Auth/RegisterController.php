@@ -6,6 +6,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Session;
 
 class RegisterController extends Controller
 {
@@ -27,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/articles';
 
     /**
      * Create a new controller instance.
@@ -62,6 +63,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        Session::flash('message','Registration Successful');   
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
